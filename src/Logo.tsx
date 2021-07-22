@@ -1,5 +1,6 @@
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faLocationArrow } from "@fortawesome/free-solid-svg-icons";
+import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons/faLinkedin";
+import { faLocationArrow } from "@fortawesome/free-solid-svg-icons/faLocationArrow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card, CardBody, Col } from "reactstrap";
 import logo from './logo.svg'
@@ -25,7 +26,7 @@ const links = [
     }
 ];
 
-const Logo = () => <Col lg={5} className="my-auto pt-3 pt-3 px-lg-5 pt-lg-5 pb-0 pb-lg-5">
+const Logo = () => <Col lg={4} className="my-auto pt-3 pt-3 px-lg-5 pt-lg-5 pb-0 pb-lg-5">
     <Card>
         <CardBody>
             <img alt='logo' style={{ maxWidth: '100%' }} src={logo} />
