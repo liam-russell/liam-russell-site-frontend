@@ -6,7 +6,7 @@ import BadgeList from '../../BadgeList';
 const SkillsList = () => {
     const store = useStore();
     return <Col lg={8} className="h-100 p-3 p-lg-5 right-pane pb-3 pb-lg-0">
-        <div className='skills-list'>
+        {!store.initialising && <div className='skills-list'>
             <h1 className='pb-3 font-weight- text-primary' style={{fontSize: '2rem', textTransform: 'uppercase'}}>
                 <strong className='text-black'>Search</strong> my skills
             </h1>
@@ -27,16 +27,16 @@ const SkillsList = () => {
                         onBadgeClick={key => store.clickCategoryAsync(key).catch(store.handleError)} />
                 </CardBody>
             </Card>
-        </div>
+        </div>}
         <Card style={{ background: 'white', overflow: 'hidden' }}>
-            <div className='bg-primary text-white p-3 font-slab'>
+            {!store.initialising && !store.refreshing && <div className='bg-primary text-white p-3 font-slab'>
                 {store.skills?.total ? store.skills?.total : 'No'}
                 {' matching '}
                 {store.skills?.total === 1 ? 'skill' : 'skills'}
-            </div>
-            {!!store.skills?.total && <CardBody>
+            </div>}
+            {(store.refreshing || store.initialising || store.skills?.total !== undefined) && <CardBody>
                 {
-                    store.loading
+                    store.refreshing
                         ? <Spinner color='primary' />
                         : <ListGroup flush>
                             {store.skills?.items?.map(s => s.key && s.name ? <SkillItem

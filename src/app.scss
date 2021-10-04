@@ -1,6 +1,6 @@
 $primary: #193b8a;
 @import "~bootstrap/scss/bootstrap";
-@import "https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Roboto+Slab:wght@500&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap";
 
 .card {
     border-radius: 1rem;
@@ -10,7 +10,7 @@ $primary: #193b8a;
 }
 
 strong, .font-weight-bold, h1, h2, h3, h4, h5, h6, .font-slab {
-    font-family: 'Roboto Slab', cursive;
+    font-family: 'Roboto Slab', serif;
 }
 
 body {

@@ -5,7 +5,8 @@ export default class GlobalStore {
     private apiClient = new Client();
     constructor() {
         makeObservable(this, {
-            loading: observable,
+            initialising: observable,
+            refreshing: observable,
             skills: observable,
             selectedCategories: observable,
             searchQuery: observable,
@@ -22,7 +23,9 @@ export default class GlobalStore {
         this.initialiseAsync().catch(this.handleError);
     }
 
-    loading = true;
+    initialising = true;
+
+    refreshing = true;
 
     skills?: SkillPaged;
 
@@ -43,7 +46,7 @@ export default class GlobalStore {
 
         await this.refreshAsync();
         runInAction(() => {
-            this.loading = false;
+            this.initialising = false;
         })
     }
 
@@ -52,15 +55,22 @@ export default class GlobalStore {
     })
     
     refreshAsync = async () => {
+        runInAction(() => {
+            this.refreshing = true;
+        });
         const skills = await this.apiClient.skills(
             this.selectedCategories,
             this.searchQuery,
+            // The API has the potential to paginate results, this could be done via infinite scroll
             undefined,
             undefined
         )
         runInAction(() => {
             this.skills = skills;
         })
+        runInAction(() => {
+            this.refreshing = false;
+        });
     }
 
     setSearchQuery = (value: string) => {
@@ -71,7 +81,7 @@ export default class GlobalStore {
 
     clickCategoryAsync = async (key: string) => {
         runInAction(() => {
-            this.loading = true;
+            this.refreshing = true;
         });
         if (this.selectedCategories.includes(key)) {
             runInAction(() => {
@@ -83,8 +93,5 @@ export default class GlobalStore {
             });
         }
         await this.refreshAsync();
-        runInAction(() => {
-            this.loading = false;
-        });
     }
 }
